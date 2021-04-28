@@ -1,0 +1,139 @@
+open instance on GCS
+ gcloud sql connect 'instance_name' --user=root --quiet
+gcloud sql connect new-instance --user=root --quiet
+
+
+customers orders and products table
+
+CREATE DATABASE game_database;
+
+CREATE DATABASE IF NOT EXISTS some_database; (IF NOT EXISTS command to ensure that your database will only be created if it does not already exist)
+
+CREATE TABLE table_name (
+  column_name1 data_type(size) constraint_name,
+  column_name2 data_type(size) constraint_name,
+  PRIMARY KEY (field_name),
+  FOREIGN KEY (other_field) REFERENCES table_name(primary_key)
+);
+
+
+
+an e.g of this
+
+CREATE DATABASE game2;
+
+USE game2;
+
+CREATE TABLE customers(
+  customer_id int NOT NULL AUTO_INCREMENT,
+  name varchar(40) NOT NULL,
+  email varchar(60) NOT NULL,
+  address_line varchar(100) NOT NULL,
+  postcode varchar(8) NOT NULL,
+  PRIMARY KEY (customer_id)
+);
+
+CREATE TABLE products(
+  product_id int NOT NULL AUTO_INCREMENT,
+  title varchar(60) NOT NULL,
+  price decimal(6,2) NOT NULL,
+  stock int NOT NULL,
+  PRIMARY KEY (product_id)
+);
+
+CREATE TABLE orders(
+  order_id int NOT NULL AUTO_INCREMENT,
+  customer_id int NOT NULL,
+  product_id int NOT NULL,
+  time_placed TIMESTAMP,
+  PRIMARY KEY (order_id),
+  FOREIGN KEY (customer_id) REFERENCES customers(customer_id),  =customers(customer_id) = reference_table(id in that table)
+  FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
+
+SHOW databases; = lists all data bases
+DESCRIBE table_name = shows the table 
+
+
+INSERT INTO customers(name, email, address_line, postcode) VALUES('kev', 'k@k.com', '3', 'HAQ 3QU'),('jeff', 'j@j.com', '17', 'CV6 6UV'), ('Rachel', 'r@r.com', '72', 'NW20 2WR') 
+
+INSERT INTO products(title, price, stock) VALUE('FIFA', '80.00', '24'),('COD', '30.00', '37'), ('MARIO', '50.00', '50');
+
+INSERT INTO orders(customer_id, product_id, time_placed) VALUES (1, 2, CURRENT_TIMESTAMP),(2, 3,CURRENT_TIMESTAMP),(3, 1,CURRENT_TIMESTAMP);
+
+
+UPDATE customers
+SET name=AGUEROOO
+WHERE id=2
+
+DELETE FROM orders
+WHERE id=2
+
+DELETE FROM orders; *deletes the whole table*
+
+UPDATE customers SET name = 'karen', WHERE customer_id= 1;
+
+
+SELECT customer_id, email FROM customers;
+SELECT * FROM products WHERE price > 50;
+SELECT * FROM products WHERE title = 'FIFA';
+SELECT * FROM customers WHERE title!= 'FIFA';
+SELECT * FROM products WHERE price < 10;
+SELECT * FROM products WHERE stock >= 18;
+SELECT * FROM orders WHERE datePlaced BETWEEN '2019-01-01' AND '2019-12-31';
+SELECT * FROM customers WHERE name LIKE "k%"; ("%ev"; "%e%";) 
+SELECT * FROM customers WHERE city IN ('Manchester', 'London', 'Birmingham');
+SELECT * FROM customers WHERE email IS NULL;
+SELECT * FROM customers WHERE email IS NOT NULL;
+SELECT * FROM orders ORDER BY time_placed;  (DESC)(ASC)
+SELECT * FROM
+
+
+Select * from customer where name <-ben = only lists bens
+SELECT * FROM country ORDER BY LifeExpectancy LIMIT 2
+SELECT price AS "price", time_placed AS "Ordered at" FROM orders ORDER BY price DESC LIMIT 2;
+SELECT price AS "price", price*10 AS "Price times by 10" FROM orders ORDER BY price DESC LIMIT 2;
+
+
+
+
+
+Challenges
+Sakila:
+	CREATE DATABASE IF NOT EXISTS world;
+	USE sakila;
+	SOURCE sakila.sql;
+World:
+	CREATE DATABASE IF NOT EXISTS world;
+	USE world;
+	SOURCE world.sql;
+
+SELECT CountryCode, Language, Percentage FROM countrylanguage WHERE Percentage <= 1;
+
+
+Joins:
+
+SELECT * = select all columns
+FROM table1 t1 = t1 is an alias
+JOIN table2 t2 on t1.field1=t2.field2; = which column in the first table and which coloumn in the second table match
+
+SELECTS * FROM film f JOIN series s on f.series_id=s.id
+
+
+SELECT * FROM city c1 JOIN country c2 ON c1.Name=c2.capital;
+JOIN table2 t2 ON t1.field1=t2.field2;
+
+
+
+
+SELECT customer_id, forename, city
+FROM customers
+WHERE customer_id=(
+    SELECT customer_id
+    FROM orders
+    WHERE order_id=1
+);
+
+
+
+
