@@ -4,7 +4,7 @@ World
 1. SELECT COUNT(Name) FROM city WHERE Countrycode LIKE "USA%"; = 274
 2. SELECT LifeExpectancy, population FROM country WHERE name LIKE "Argentina%"; = 75.1 and 37,032,000
 3. SELECT * FROM country ORDER BY LifeExpectancy DESC LIMIT 1; = Andorra 
-4. SELECT * FROM city c1 JOIN country c1 city ON country.capital=c1 [X}
+4. SELECT * FROM city c1 JOIN country c2 city ON country.capital=c1 [X}
 5.
 6. SELECT * FROM city WHERE name LIKE "F%" LIMIT 25; = lists all cities starting with F
 7.
